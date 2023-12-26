@@ -33,10 +33,10 @@ def create_app():
 
     #swagger config
     app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["API_TITLE"] = "My API"
+    app.config["API_TITLE"] = "Flask Blog API"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.2"
-    app.config["OPENAPI_URL_PREFIX"]='/'
+    app.config["OPENAPI_URL_PREFIX"]='/api'
     app.config["OPENAPI_SWAGGER_UI_PATH"]='/swagger-ui'
     app.config["OPENAPI_SWAGGER_UI_URL"]='https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/'
 
@@ -44,6 +44,21 @@ def create_app():
     app.config["OPENAPI_REDOC_PATH"]='/redoc-ui'
     app.config["OPENAPI_REDOC_URL"]='https://rebilly.github.io/ReDoc/releases/v1.x.x/redoc.min.js'
 
+    #add authentication in swagger ui
+    app.config['API_SPEC_OPTIONS'] = {
+    'security': [{"bearerAuth": []}],
+    'components': {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+                }
+            }
+        },
+    'scheme': ['http', 'https']
+    }
+    app.config['OPENAPI_SWAGGER_UI_PROTOCOLS'] = ['http', 'https']
     #jwt config
     app.config['JWT_SECRET_KEY']=os.getenv("JWT_SECRET_KEY")
     app.config['JWT_ACCESS_TOKEN_EXPIRES']= timedelta(minutes=300)

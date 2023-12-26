@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: flask_blog_app_web
+    build: .
+    command: python main.py
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    container_name: flask_blog_app_db
+    image: postgres:13.0-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+volumes:
+  db_data:
