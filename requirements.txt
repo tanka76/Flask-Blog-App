@@ -21,3 +21,5 @@ typing_extensions==4.8.0
 webargs==8.3.0
 Werkzeug==2.3.7
 flask_jwt_extended==4.5.2
+psycopg2
+psycopg2-binary
