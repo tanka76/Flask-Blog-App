@@ -29,7 +29,9 @@ def create_app():
     #Load .env file
     load_dotenv()
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+    
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+    app.config["SQLALCHEMY_DATABASE_URI"] = get_database_uri()
 
     #swagger config
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -150,4 +152,4 @@ def get_database_uri():
     host_name = os.getenv("HOST_NAME")
     db_port = os.getenv("DB_PORT")
 
-    return f"postgres://{database_username}:{database_password}@{host_name}:{db_port}/{database_name}"
+    return f"postgresql://{database_username}:{database_password}@{host_name}:{db_port}/{database_name}"
