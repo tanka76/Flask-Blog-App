@@ -10,6 +10,10 @@ from .blacklist import blacklisted_tokens
 
 bp = Blueprint("users", __name__ ,url_prefix='/users',description='Operation on users')
 
+@bp.route('/',methods=['GET'])
+def home():
+    return jsonify({'msg':"Hello World!!!!"})
+
 @bp.route('/register', methods=['POST'])
 @bp.arguments(UserRegisterSchema)
 @bp.response(201,UserRegisterSchema)
